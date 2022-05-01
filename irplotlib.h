@@ -58,6 +58,7 @@ class IRPlotLib {
     void set_ylim(double ymin, double ymax);
 
     void plot(std::vector<double> &t, std::vector<double> &x);
+    void plot(cv::Point2d x1, cv::Point2d x2);  // 2点を結ぶ直線
     void scatter(std::vector<double> &x, std::vector<double> &y);
     void title(std::string str);
     void show();

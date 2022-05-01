@@ -74,6 +74,16 @@ void IRPlotLib::plot(std::vector<double> &t,
   data.emplace_back(dat);
 };
 
+void IRPlotLib::plot(cv::Point2d x1, cv::Point2d x2) {
+  Dataset dat;
+  dat.type = 0;
+  std::vector<double> x{x1.x, x2.x};
+  std::vector<double> y{x1.y, x2.y};
+  dat.x = x;
+  dat.y = y;
+  data.emplace_back(dat);
+};
+
 void IRPlotLib::scatter(std::vector<double> &x,
                      std::vector<double> &y) {
   Dataset dat;
