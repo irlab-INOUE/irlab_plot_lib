@@ -68,8 +68,18 @@ void IRPlotLib::set_ylim(double ymin, double ymax) {
 void IRPlotLib::plot(std::vector<double> &t,
                      std::vector<double> &x) {
   Dataset dat;
+  dat.type = 0;
   dat.x = t;
   dat.y = x;
+  data.emplace_back(dat);
+};
+
+void IRPlotLib::scatter(std::vector<double> &x,
+                     std::vector<double> &y) {
+  Dataset dat;
+  dat.type = 1;
+  dat.x = x;
+  dat.y = y;
   data.emplace_back(dat);
 };
 
@@ -85,21 +95,33 @@ void IRPlotLib::show() {
 
 void IRPlotLib::plot_run() {
   for (auto d: data) {
-    for (size_t i = 1; i < d.x.size(); i++) {
-      int ix0 = (d.x[i-1] - min_x)/cx_size;
-      int iy0 = (d.y[i-1] - min_y)/cy_size;
-      int ix1 = (d.x[i  ] - min_x)/cx_size;
-      int iy1 = (d.y[i  ] - min_y)/cy_size;
-      if (0 <= ix1 && ix1 <= GRAPH_SIZE.width && 0 <= iy1 && iy1 <= GRAPH_SIZE.height) {
-        cv::line(img,
-            cv::Point(ix0 + ORIGIN_X_px,-iy0 + ORIGIN_Y_px),
-            cv::Point(ix1 + ORIGIN_X_px,-iy1 + ORIGIN_Y_px),
-            color[color_index % color.size()], 1, cv::LINE_AA);
+    if (d.type == 0) {
+      for (size_t i = 1; i < d.x.size(); i++) {
+        int ix0 = (d.x[i-1] - min_x)/cx_size;
+        int iy0 = (d.y[i-1] - min_y)/cy_size;
+        int ix1 = (d.x[i  ] - min_x)/cx_size;
+        int iy1 = (d.y[i  ] - min_y)/cy_size;
+        if (0 <= ix1 && ix1 <= GRAPH_SIZE.width && 0 <= iy1 && iy1 <= GRAPH_SIZE.height) {
+          cv::line(img,
+              cv::Point(ix0 + ORIGIN_X_px,-iy0 + ORIGIN_Y_px),
+              cv::Point(ix1 + ORIGIN_X_px,-iy1 + ORIGIN_Y_px),
+              color[color_index % color.size()], 1, cv::LINE_AA);
 #if 0
-        cv::circle(img,
-            cv::Point(ix1 + ORIGIN_X_px,-iy1 + ORIGIN_Y_px),
-            2, cv::Scalar(0, 0, 200), 1);
+          cv::circle(img,
+              cv::Point(ix1 + ORIGIN_X_px,-iy1 + ORIGIN_Y_px),
+              2, cv::Scalar(0, 0, 200), 1);
 #endif
+        }
+      }
+    } else if (d.type == 1) {
+      for (size_t i = 0; i < d.x.size(); i++) {
+        int ix = (d.x[i  ] - min_x)/cx_size;
+        int iy = (d.y[i  ] - min_y)/cy_size;
+        if (0 <= ix && ix <= GRAPH_SIZE.width && 0 <= iy && iy <= GRAPH_SIZE.height) {
+          cv::circle(img,
+              cv::Point(ix + ORIGIN_X_px, -iy + ORIGIN_Y_px),
+              2, color[color_index % color.size()], -1, cv::LINE_AA);
+        }
       }
     }
     color_index++;

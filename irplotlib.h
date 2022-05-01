@@ -8,8 +8,12 @@
 #include <vector>
 
 struct Dataset {
+  int type;
   std::vector<double> x;
   std::vector<double> y;
+  Dataset() {
+    type = 0;   // デフォルトは線で描画 1で散布図
+  };
 };
 
 class IRPlotLib {
@@ -54,6 +58,7 @@ class IRPlotLib {
     void set_ylim(double ymin, double ymax);
 
     void plot(std::vector<double> &t, std::vector<double> &x);
+    void scatter(std::vector<double> &x, std::vector<double> &y);
     void title(std::string str);
     void show();
     void save();
