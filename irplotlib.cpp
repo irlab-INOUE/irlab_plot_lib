@@ -179,9 +179,10 @@ void IRPlotLib::grid() {
 
     std::stringstream numStr;
     numStr << double(int(y * 100))/100;
+    cv::Size textSize = cv::getTextSize(numStr.str(), cv::FONT_HERSHEY_PLAIN, 1.0, 1, 0);
     cv::putText(img,
         numStr.str(),
-        cv::Point(ORIGIN_X_px - 50,                    -(y - min_y)/cy_size + ORIGIN_Y_px),
+        cv::Point(ORIGIN_X_px - textSize.width - 10,                    -(y - min_y)/cy_size + ORIGIN_Y_px),
         cv::FONT_HERSHEY_PLAIN,
         1, cv::Scalar(0, 0, 0), 1, cv::LINE_AA);
   }
@@ -197,9 +198,10 @@ void IRPlotLib::grid() {
         cv::Scalar(0, 0, 0), 1, cv::LINE_8);
     std::stringstream numStr;
     numStr << double(int(x * 100))/100;
+    cv::Size textSize = cv::getTextSize(numStr.str(), cv::FONT_HERSHEY_PLAIN, 1.0, 1, 0);
     cv::putText(img,
         numStr.str(),
-        cv::Point((x - min_x)/cx_size + ORIGIN_X_px - 12, ORIGIN_Y_px + 24),
+        cv::Point((x - min_x)/cx_size + ORIGIN_X_px - textSize.width/2, ORIGIN_Y_px + 24),
         cv::FONT_HERSHEY_PLAIN,
         1, cv::Scalar(0, 0, 0), 1, cv::LINE_AA);
   }
