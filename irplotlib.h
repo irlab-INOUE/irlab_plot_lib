@@ -43,6 +43,9 @@ class IRPlotLib {
     std::vector<cv::Scalar> color;
     int color_index = 0;
 
+    void draw_title();
+    std::string graph_title;
+
   public:
     IRPlotLib() { std::cerr << "Hello, irplotlib\n"; };
     IRPlotLib(int width, int height);
@@ -51,6 +54,7 @@ class IRPlotLib {
     void set_ylim(double ymin, double ymax);
 
     void plot(std::vector<double> &t, std::vector<double> &x);
+    void title(std::string str);
     void show();
     void save();
 };

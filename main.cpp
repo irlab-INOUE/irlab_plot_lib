@@ -29,6 +29,7 @@ int main(int argc, char *argv[]) {
   for (auto xx: x) {
     plt.plot(t, xx);
   }
+  plt.title("test-plot-sin");
   plt.show();
   plt.save();
   return 0;

@@ -78,6 +78,7 @@ void IRPlotLib::show() {
   img_base.copyTo(img);
   grid();
   plot_run();
+  draw_title();
   cv::imshow("TEST", img);
   cv::waitKey(0);
 }
@@ -103,6 +104,20 @@ void IRPlotLib::plot_run() {
     }
     color_index++;
   }
+}
+
+void IRPlotLib::draw_title() {
+  cv::Size textSize = cv::getTextSize(graph_title, cv::FONT_HERSHEY_PLAIN, 1.0, 1, 0);
+  cv::putText(img,
+      graph_title,
+      cv::Point(WIN_SIZE.width/2 - textSize.width/2, // グラフの中央寄せ
+        ORIGIN_Y_px - 1.05 * GRAPH_SIZE.height),
+      cv::FONT_HERSHEY_PLAIN,
+      1, cv::Scalar(0, 0, 0), 1, cv::LINE_AA);
+}
+
+void IRPlotLib::title(std::string str) {
+  graph_title = str;
 }
 
 void IRPlotLib::grid() {
