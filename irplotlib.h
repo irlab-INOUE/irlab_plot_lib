@@ -43,11 +43,14 @@ class IRPlotLib {
     std::vector<double> ticks_x;
     std::vector<double> ticks_y;
 
+    std::string x_label, y_label;
+
     void plot_run();
     std::vector<cv::Scalar> color;
     int color_index = 0;
 
     void draw_title();
+    void draw_label();
     std::string graph_title;
 
   public:
@@ -56,6 +59,8 @@ class IRPlotLib {
 
     void set_xlim(double xmin, double xmax);
     void set_ylim(double ymin, double ymax);
+    void xlabel(std::string label);
+    void ylabel(std::string label);
 
     void plot(std::vector<double> &t, std::vector<double> &x);
     void plot(cv::Point2d x1, cv::Point2d x2);  // 2点を結ぶ直線

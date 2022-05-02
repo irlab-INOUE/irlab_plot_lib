@@ -30,6 +30,8 @@ int main(int argc, char *argv[]) {
     plt.plot(t, xx);
   }
   plt.title("test-plot-sin");
+  plt.xlabel("t");
+  //plt.ylabel("function");  // ylabelは未実装
   plt.show();
   plt.save();
   return 0;

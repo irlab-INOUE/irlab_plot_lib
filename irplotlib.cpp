@@ -65,6 +65,13 @@ void IRPlotLib::set_ylim(double ymin, double ymax) {
   ticks_y = make_tick(min_y, max_y);
 }
 
+void IRPlotLib::xlabel(std::string label) {
+  x_label = label;
+}
+void IRPlotLib::ylabel(std::string label) {
+  y_label = label;
+}
+
 void IRPlotLib::plot(std::vector<double> &t,
                      std::vector<double> &x) {
   Dataset dat;
@@ -99,6 +106,7 @@ void IRPlotLib::show() {
   grid();
   plot_run();
   draw_title();
+  draw_label();
   cv::imshow("TEST", img);
   cv::waitKey(0);
 }
@@ -144,6 +152,25 @@ void IRPlotLib::draw_title() {
       graph_title,
       cv::Point(WIN_SIZE.width/2 - textSize.width/2, // グラフの中央寄せ
         ORIGIN_Y_px - 1.05 * GRAPH_SIZE.height),
+      cv::FONT_HERSHEY_PLAIN,
+      1, cv::Scalar(0, 0, 0), 1, cv::LINE_AA);
+}
+
+void IRPlotLib::draw_label() {
+  // xlabel
+  cv::Size textSize_x = cv::getTextSize(x_label, cv::FONT_HERSHEY_PLAIN, 1.0, 1, 0);
+  cv::putText(img,
+      x_label,
+      cv::Point(WIN_SIZE.width/2 - textSize_x.width/2, // グラフの中央寄せ
+        ORIGIN_Y_px + (WIN_SIZE.height - GRAPH_SIZE.height)/3),
+      cv::FONT_HERSHEY_PLAIN,
+      1, cv::Scalar(0, 0, 0), 1, cv::LINE_AA);
+  // ylabel
+  cv::Size textSize_y = cv::getTextSize(y_label, cv::FONT_HERSHEY_PLAIN, 1.0, 1, 0);
+  cv::putText(img,
+      y_label,
+      cv::Point(WIN_SIZE.width/2 - textSize_y.width/2, // グラフの中央寄せ
+        ORIGIN_Y_px + (WIN_SIZE.height - GRAPH_SIZE.height)/3),
       cv::FONT_HERSHEY_PLAIN,
       1, cv::Scalar(0, 0, 0), 1, cv::LINE_AA);
 }
