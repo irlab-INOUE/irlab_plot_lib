@@ -13,9 +13,8 @@ for i in range(0, 5000):
     x.append(xx)
     t.append(tt)
 
-plt.plot(t, x)
+#plt.plot(t, x)
+plt.plot([-2.0, 2.0], [-2.0, 1.8])
 plt.grid()
-plt.xlim(-2, 0.5)
-plt.ylim(-2, 3)
 plt.title('test-plot')
 plt.show()

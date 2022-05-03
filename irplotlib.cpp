@@ -173,12 +173,10 @@ void IRPlotLib::draw_label() {
       cv::Point(0, textSize_y.height + 1),
       cv::FONT_HERSHEY_PLAIN,
       1, cv::Scalar(0, 0, 0), 1, cv::LINE_AA);
-
-  cv::Point2d ctr(y_label_img.cols/2,
-      y_label_img.rows/2);
+  cv::Point2d ctr(y_label_img.cols/2, y_label_img.rows/2);
   cv::Mat mat = cv::getRotationMatrix2D(ctr, 90, 1.0);
-  mat.at<double>(0,2) +=-y_label_img.rows;
-  mat.at<double>(1,2) +=WIN_SIZE.height/2;
+  mat.at<double>(0, 2) += -y_label_img.rows;
+  mat.at<double>(1, 2) += WIN_SIZE.height/2;
   cv::warpAffine(y_label_img,
       img, mat, img.size(),
       cv::INTER_LINEAR, cv::BORDER_TRANSPARENT);

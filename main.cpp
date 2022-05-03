@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
     plt.plot(t, xx);
   }
   plt.title("test-plot-sin");
-  plt.xlabel("t");
+  plt.xlabel("t[s]");
   plt.ylabel("function");
   plt.show();
   plt.save();
